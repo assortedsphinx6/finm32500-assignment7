@@ -34,7 +34,6 @@ if __name__ == "__main__":
     print("Polars:", round(t3 - t2, 4), "s")
 
     # Visualize one symbol
-    # Filter by symbol
     s = "AAPL"
     sub_pandas = rp[rp["symbol"] == s].dropna(subset=["ma"])
     sub_polars = rpl.filter(pl.col("symbol") == s).drop_nulls("ma").sort("timestamp").to_pandas()
@@ -49,7 +48,6 @@ if __name__ == "__main__":
     plt.ylabel("Price")
     plt.legend()
     plt.show()
-
 
     # CPU/Memory helper
     def run_with_metrics(func, df, **kwargs):
