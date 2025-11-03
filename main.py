@@ -34,18 +34,22 @@ if __name__ == "__main__":
     print("Polars:", round(t3 - t2, 4), "s")
 
     # Visualize one symbol
+    # Filter by symbol
     s = "AAPL"
-    sub_pandas = rp[rp["symbol"] == s]
-    sub_polars = rpl.filter(pl.col("symbol") == s).to_pandas()
+    sub_pandas = rp[rp["symbol"] == s].dropna(subset=["ma"])
+    sub_polars = rpl.filter(pl.col("symbol") == s).drop_nulls("ma").sort("timestamp").to_pandas()
 
     plt.figure(figsize=(10,5))
-    plt.plot(sub_pandas.index, sub_pandas["price"], label="Price (Pandas)")
-    plt.plot(sub_pandas.index, sub_pandas["ma"], label="MA (Pandas)")
-    plt.plot(sub_polars.index, sub_polars["price"], '--', label="Price (Polars)")
-    plt.plot(sub_polars.index, sub_polars["ma"], '--', label="MA (Polars)")
+    plt.plot(sub_pandas["timestamp"], sub_pandas["price"], label="Price (Pandas)")
+    plt.plot(sub_pandas["timestamp"], sub_pandas["ma"], label="MA (Pandas)")
+    plt.plot(sub_polars["timestamp"], sub_polars["price"], '--', label="Price (Polars)")
+    plt.plot(sub_polars["timestamp"], sub_polars["ma"], '--', label="MA (Polars)")
     plt.title(f"{s} Price & 20-period MA (Pandas vs Polars)")
+    plt.xlabel("Timestamp")
+    plt.ylabel("Price")
     plt.legend()
     plt.show()
+
 
     # CPU/Memory helper
     def run_with_metrics(func, df, **kwargs):
