@@ -22,3 +22,4 @@ def rolling_polars(df, window=20):
     ])
     df = df.with_columns((pl.col("m") / pl.col("s")).alias("sharpe")).drop(["m","s"])
     return df
+

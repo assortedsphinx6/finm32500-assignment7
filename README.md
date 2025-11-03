@@ -29,7 +29,7 @@ pandas: small–medium datasets, rapid iteration, plotting, rich PyData ecosyste
 polars: large pipelines, many symbols, need parallelism/low memory. Prefer one lazy pipeline over manual Python threading.
 
 part 3 
-Git limitations 
+GIL limitations 
 #
 Python’s Global Interpreter Lock (GIL) allows only one thread to execute Python bytecode at a time
 #However, threading still helps for I/O-bound tasks or when using libraries like NumPy or Polars that release the GIL during heavy computations. 

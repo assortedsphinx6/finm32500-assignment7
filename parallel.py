@@ -79,10 +79,3 @@ def compute_multiprocessing(df, library="pandas", window=20):
 
     return final_df
 
-#Python’s Global Interpreter Lock (GIL) allows only one thread to execute Python bytecode at a time
-#However, threading still helps for I/O-bound tasks or when using libraries like NumPy or Polars that release the GIL during heavy computations. 
-#Multiprocessing, on the other hand, spawns separate Python processes, each with its own GIL and memory space, enabling true parallelism. 
-#
-#As we can see threading provided fast speedups for Polars and moderate improvements for Pandas due to vectorized operations releasing the GIL. 
-#Multiprocessing showed higher CPU utilization but was slower for smaller datasets because of process startup and data serialization overhead. 
-#Thus, threading is preferred for lightweight or GIL-releasing operations, while multiprocessing is best suited for CPU-bound tasks with large computations for which the benefits of multiprocessing outweigh the overhead of process creation.
