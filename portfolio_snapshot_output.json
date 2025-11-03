@@ -1,0 +1,36 @@
+{
+  "name": "Main Portfolio",
+  "total_value": 36067.3,
+  "aggregate_volatility": 0.001373210042659428,
+  "max_drawdown": -0.7361397311353155,
+  "positions": [
+    {
+      "symbol": "AAPL",
+      "value": 9207.0,
+      "volatility": 0.003473908980819624,
+      "drawdown": -0.7361397311353155
+    },
+    {
+      "symbol": "MSFT",
+      "value": 16076.5,
+      "volatility": 0.0006967222823336286,
+      "drawdown": -0.24521606893929793
+    }
+  ],
+  "sub_portfolios": [
+    {
+      "name": "Index Holdings",
+      "total_value": 10783.8,
+      "aggregate_volatility": 0.0005881825342891691,
+      "max_drawdown": -0.13052355904742885,
+      "positions": [
+        {
+          "symbol": "SPY",
+          "value": 10783.8,
+          "volatility": 0.0005881825342891691,
+          "drawdown": -0.13052355904742885
+        }
+      ]
+    }
+  ]
+}
