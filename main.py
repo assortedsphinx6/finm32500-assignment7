@@ -3,6 +3,12 @@ from data_loader import load_pandas, load_polars
 from metrics import rolling_pandas, rolling_polars
 import parallel
 
+import json
+from portfolio import (
+    aggregate_portfolio_sequential,
+    aggregate_portfolio_parallel,
+)
+
 if __name__ == "__main__":
     t0 = time.time()
     df1 = load_pandas("market_data-1.csv")
@@ -38,3 +44,14 @@ if __name__ == "__main__":
     print(f"Multiprocessing time: {process_time:.4f}s")
 
 
+    #portfolio aggregation test
+    with open("portfolio_structure-1.json","r",encoding="utf-8") as f:
+        port = json.load(f)
+
+    snap_seq = aggregate_portfolio_sequential(port, dfp, vol_window=20)
+    snap_par = aggregate_portfolio_parallel(port, dfp, vol_window=20, max_workers=None)
+    assert abs(snap_seq["total_value"] - snap_par["total_value"]) < 1e-6
+    print(json.dumps(snap_par, indent=2))
+    #save json output
+    with open("portfolio_snapshot_output.json","w",encoding="utf-8") as f:
+        json.dump(snap_par, f, indent=2)
