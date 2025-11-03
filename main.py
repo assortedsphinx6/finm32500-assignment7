@@ -1,4 +1,7 @@
-import time, matplotlib.pyplot as plt
+import time
+import matplotlib.pyplot as plt
+import polars as pl
+import psutil
 from data_loader import load_pandas, load_polars
 from metrics import rolling_pandas, rolling_polars
 import parallel
@@ -53,8 +56,10 @@ if __name__ == "__main__":
 
     
 
-    dfp = load_pandas("market_data-1.csv")
-    dfpl = load_polars("market_data-1.csv")
+    # Rolling Metrics (single-threaded)
+    t0 = time.time()
+    rp = rolling_pandas(dfp)
+    t1 = time.time()
 
     t0 = time.time()
     rss0 = _rss_mb()
